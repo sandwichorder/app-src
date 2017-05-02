@@ -1,0 +1,49 @@
+<!--
+  Generated template for the ItemSelection page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+
+    <ion-row align-items-center>
+      <ion-col col-auto>
+        <button color="mainGreen" ion-button clear (click)='dismiss()'>
+         <ion-icon clear  name="close"></ion-icon>
+        </button>
+      </ion-col>
+
+      <ion-col width-100>
+        <ion-title>Menu</ion-title>
+      </ion-col>
+    </ion-row>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+
+  <ion-list ion-item *ngFor="let cat of categories">
+    <ion-row class="greenUnder greenOver" align-items-center>
+      <ion-col width-100>
+        <div>{{cat.name}}</div>
+      </ion-col>
+    </ion-row>
+<div class="subItems">
+    <li (click)="addItem(item)" *ngFor="let item of items |categoryItemsFilter: cat.id ">
+      <ion-row class="greyUnder" align-items-center>
+        <ion-col width-100>
+          <div> {{item.name}} </div>
+        </ion-col>
+        
+        <ion-col col-auto>
+          <div> £ {{getItemPrice(item)}} </div>
+        </ion-col>
+      </ion-row>
+    </li>
+</div>
+  </ion-list>
+</ion-content>

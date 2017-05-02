@@ -1,0 +1,114 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+//Top div
+.toolbar-background {
+  background-color: color($colors, mainDarkGrey2) ; 
+}
+.toolbar-title-md{
+     color: white ;
+}
+
+//Background
+body{
+background-color:  color($colors, mainDarkGrey2);
+}
+div.scroll-content{
+  background-color:  color($colors, subDarkGrey);
+}
+//Alert
+.alert-md .alert-head{
+  background-color:  color($colors, mainDarkGrey2);
+  color: white;
+}
+.alert-md .alert-wrapper{
+  background-color:  color($colors, mainDarkGrey2);
+  color: white;
+}
+.alert-md .alert-input{
+  color: white;
+}
+.button-inner{
+   color: white;
+}
+//Menu items
+.item-md{
+  background-color:  color($colors, subDarkGrey);
+  color:white;
+  padding-left: 1px;
+  padding-right : 1px;
+}
+.list-md{
+ margin: 0;
+}
+
+.item-inner{
+  border: 0 !important;
+  padding: 0 !important;
+}
+//Custom input
+.text-input {
+    background-color: white;
+    color: black;
+    margin:7px,2px,7px,2px;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.label-md{
+  margin:0;
+}
+
+.buttonPadding{
+  margin-left: 0.2%;
+  width:99.6%;
+}
+
+.row{
+  color: white;
+}
+
+.greenUnder{
+  border-bottom:solid 0.7px !important;
+  border-color:  color($colors, mainGreen) !important;
+}
+.greenOver{
+   border-top:solid 0.7px !important;
+  border-color:  color($colors, mainGreen) !important;
+
+}
+.greyUnder{
+  border-bottom:solid 0.5px !important;
+  border-color:  #a5a5a5 !important;
+}
+
+.subItems{
+background-color: color($colors, lighterGrey);
+}
+.text-input-md{
+  margin:3px;
+}
+
+.small{
+  padding: 0;
+  width:25px;
+  height: 25px;
+}
+
+.marginRight{
+margin-right: 5px;
+}

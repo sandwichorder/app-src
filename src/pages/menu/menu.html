@@ -1,0 +1,73 @@
+<!--
+  Generated template for the Menu page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-row align-items-center>
+
+      <ion-col col-auto>
+        <button ion-button menuToggle>
+            <ion-icon color="mainGreen" name="menu"></ion-icon>
+        </button>
+      </ion-col>
+
+      <ion-col width-100>
+        <ion-title>Menu</ion-title>
+      </ion-col>
+
+      <ion-col col-auto>
+        <button ion-button clear (click)='addCategoryPrompt()'>
+          <ion-icon color="mainGreen" name="add"></ion-icon>
+         </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchFilter"></ion-searchbar>
+
+  <ion-list  ion-item *ngFor="let cat of categories">
+      <ion-row class="greenUnder greenOver" align-items-center>
+
+        <ion-col width-100>
+          <div (click)='editCategory(cat)'>{{cat.name}}</div>
+        </ion-col>
+
+
+        <ion-col col-auto>
+          <button ion-button clear (click)='removeCategory(cat)'>
+          <ion-icon color="mainGreen" name="trash"></ion-icon>
+        </button>
+        </ion-col>
+      </ion-row>
+<div class="subItems">
+    <li  *ngFor="let item of items |categoryItemsFilter: cat.id ">
+      <ion-row class="greyUnder" align-items-center>
+        <ion-col width-100>
+          <div (click)='editItem(item)'>{{item.name}} </div>
+        </ion-col>
+
+        <ion-col col-auto>
+          <ion-row align-items-center>
+            <div> £{{getItemPrice(item)}} </div>
+
+            <button ion-button clear (click)='removeItem(item)'>
+               <ion-icon  color="mainGreen" name="close"></ion-icon>
+          </button>
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+    </li>
+
+    <button class="buttonPadding" ion-button full color="mainGreen" (click)='addCatItemPrompt(cat.id)'>Add Item</button>
+</div>
+  </ion-list>
+</ion-content>
