@@ -6,18 +6,18 @@ import { Pipe, PipeTransform} from '@angular/core';
 })
 
 export class CategoryItemsFilter implements PipeTransform {
-  transform(items: any[], catId: string): any[] {
-     let catItems : any[] = [];
-      items.forEach(function(item){
-        if (item.catId == catId){
-          catItems.push(item);
-        }
-      });
-      catItems = catItems.sort((n1,n2)=>{
-        return (n1.name>n2.name) ? 1 : -1;
-      });
-  return catItems
-
+  transform(categories: any[], searchFilter: string): any[] {
+    console.log(searchFilter);
+    let menu = categories.slice();
+    if(searchFilter && searchFilter.trim() !== ''){
+      return menu.map(category =>{ 
+            return Object.assign(category, {
+                items: category.items.filter(item => item.name.toLowerCase().indexOf(searchFilter.toLowerCase()) > -1)
+            })
+          }).filter(category => category.items.length > 0);
+    }else{
+      return menu;
+    }
   }
 }
 

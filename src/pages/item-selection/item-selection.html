@@ -24,16 +24,16 @@
 
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchFilter" (ionInput)="displayableMenu()"></ion-searchbar>
 
-  <ion-list ion-item *ngFor="let cat of categories">
+  <ion-list ion-item *ngFor="let cat of displayMenu">
     <ion-row class="greenUnder greenOver" align-items-center>
       <ion-col width-100>
         <div>{{cat.name}}</div>
       </ion-col>
     </ion-row>
 <div class="subItems">
-    <li (click)="addItem(item)" *ngFor="let item of items |categoryItemsFilter: cat.id ">
+    <li (click)="addItem(item)" *ngFor="let item of cat.items ">
       <ion-row class="greyUnder" align-items-center>
         <ion-col width-100>
           <div> {{item.name}} </div>

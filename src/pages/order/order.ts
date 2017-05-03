@@ -19,7 +19,6 @@ export class OrderPage implements OnInit {
   orders: any[] = [];
   items: any[] = [];
   errorMessage: any;
-  ordertext: string;
   searchFilter:string = "";
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataService, public modalCtrl: ModalController) { }
 
@@ -203,7 +202,7 @@ filterOrders():any[]{
 
   generateOrderText() {
     let text: string = "";
-    let newline = "\n";
+    let newline = " \r\n";
     for (var order of this.orders) {
       if (order.include) {
         let name = this.getPersonName(order.id);
@@ -215,7 +214,8 @@ filterOrders():any[]{
         text += newline;
       }
     }
-    this.ordertext = text;
+
+    window.open( `mailto:?subject=Sandwich order&body=${encodeURIComponent(text)}`,"_self");
   }
 
   saveOrder(order){

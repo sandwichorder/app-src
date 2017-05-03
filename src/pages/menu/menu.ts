@@ -19,22 +19,55 @@ import { DataService } from '../../services/data.service';
 
 export class MenuPage implements OnInit {
 
-  categories: any[] = [];
-  items: any[] = [];
-    searchFilter:string = "";
+  menu: any[] = [];
+  searchFilter: string = "";
   errorMessage: any;
+
+  displayMenu: any[] = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public dataService: DataService) { }
 
   getMenu(): void {
     this.dataService.get("/categories")
       .subscribe((categories) => {
-        this.categories = categories.sort((n1,n2)=>{
-        return (n1.name>n2.name) ? 1 : -1;
-      });
-      }, error => this.errorMessage = <any>error);
 
-    this.dataService.get("/items")
-      .subscribe(items => this.items = items, error => this.errorMessage = <any>error);
+         this.dataService.get("/items")
+           .subscribe(items => {
+
+              this.menu = categories.map(category => {
+                  return Object.assign(category, { 
+                    items: items.filter(item => item.catId == category.id).sort( (a, b) => a.name > b.name ? 1 : -1)
+                  })
+              }).sort( (a, b) => a.name > b.name ? 1 : -1);
+              this.displayableMenu();
+
+        }, error => this.errorMessage = <any>error);
+
+      }, error => this.errorMessage = <any>error);
+  }
+
+  displayableMenu():void{
+     this.displayMenu = [];
+    for(var cat of this.menu){
+      let category:any = {};
+      let newItems:any[]=[];
+      for(var item of cat.items){
+        if (item.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1){
+          newItems.push(item);
+        }
+      }
+      if (newItems.length > 0){
+      category.name = cat.name;
+      category.id = cat.id;
+      category.items = newItems;
+      this.displayMenu.push(category);}
+    }
+
+
+    // return Object.assign([],this.menu).map(category => {
+    //   return Object.assign(category, {
+    //         items: Object.assign([], category.items).filter(item => item.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
+    //   })
+    // }).filter(category => category.items.length > 0)
   }
 
   ngOnInit(): void {
@@ -190,10 +223,7 @@ export class MenuPage implements OnInit {
   }
 
   removeCategory(cat) {
-    const items = this.items.filter(x => x.catId == cat.id);
-
-    for (var i of items) this.removeItem(i);
-    console.log(items);
+    for (var item of cat.items) this.removeItem(item);
     this.dataService.delete("/categories", cat)
       .subscribe(data => {
         console.log(data);
@@ -204,4 +234,5 @@ export class MenuPage implements OnInit {
   getItemPrice(item) {
     return item.hasOwnProperty('price') ? Number(item.price).toFixed(2) : Number(0).toFixed(2);
   }
+
 }

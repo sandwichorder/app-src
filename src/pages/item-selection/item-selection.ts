@@ -13,23 +13,54 @@ import { DataService } from '../../services/data.service';
   templateUrl: 'item-selection.html'
 })
 export class ItemSelectionPage implements OnInit {
-
-  categories: any[] = [];
-  items: any[] = [];
+ menu: any[] = [];
+   displayMenu: any[] = [];
+   searchFilter: string = "";
   errorMessage: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataService, public viewCtrl: ViewController) { }
 
   getMenu(): void {
     this.dataService.get("/categories")
       .subscribe((categories) => {
-        this.categories = categories.sort((n1,n2)=>{
-        return (n1.name>n2.name) ? 1 : -1;
-      });
+
+         this.dataService.get("/items")
+           .subscribe(items => {
+
+              this.menu = categories.map(category => {
+                  return Object.assign(category, { 
+                    items: items.filter(item => item.catId == category.id).sort( (a, b) => a.name > b.name ? 1 : -1)
+                  })
+              }).sort( (a, b) => a.name > b.name ? 1 : -1);
+              this.displayableMenu();
+
+        }, error => this.errorMessage = <any>error);
+
       }, error => this.errorMessage = <any>error);
+  }
+
+  displayableMenu():void{
+     this.displayMenu = [];
+    for(var cat of this.menu){
+      let category:any = {};
+      let newItems:any[]=[];
+      for(var item of cat.items){
+        if (item.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1){
+          newItems.push(item);
+        }
+      }
+      if (newItems.length > 0){
+      category.name = cat.name;
+      category.id = cat.id;
+      category.items = newItems;
+      this.displayMenu.push(category);}
+    }
 
 
-    this.dataService.get("/items")
-      .subscribe(items => this.items = items, error => this.errorMessage = <any>error);
+    // return Object.assign([],this.menu).map(category => {
+    //   return Object.assign(category, {
+    //         items: Object.assign([], category.items).filter(item => item.name.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
+    //   })
+    // }).filter(category => category.items.length > 0)
   }
 
   ngOnInit(): void {
