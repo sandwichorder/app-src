@@ -8,6 +8,7 @@ npm install -g ionic
 git clone https://github.com/sandwichorder/app-src.git
 cd app-src/
 npm install
+npm install --save-dev --save-exact ionic@latest
 npm install --save-dev --save-exact @ionic/cli-plugin-ionic-angular@latest
 ```
 ## Building
