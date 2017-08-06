@@ -1,6 +1,6 @@
 # Sorion sandwich order app source
 
-## Instalation & running
+## Instalation
 You need [NodeJS](https://nodejs.org/en/) installed on your PC as well as some terminal tool like [Git Bash](https://git-for-windows.github.io/).
 Open Git Bash in directory where you want to pull the repository.
 ```
