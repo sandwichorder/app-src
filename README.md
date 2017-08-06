@@ -8,11 +8,14 @@ npm install -g ionic
 git clone https://github.com/sandwichorder/app-src.git
 cd app-src/
 npm install
-ionic serve
+npm install --save-dev --save-exact @ionic/cli-plugin-ionic-angular@latest
 ```
 ## Building
-
 ```
 ionic build
 ```
 This will build all the files into the www/ directory. After build commit code to Git.
+## Running
+```
+ionic serve
+```
