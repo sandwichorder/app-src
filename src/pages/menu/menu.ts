@@ -44,7 +44,7 @@ export class MenuPage implements OnInit {
 
       }, error => this.errorMessage = <any>error);
   }
-
+          
   displayableMenu():void{
      this.displayMenu = [];
     for(var cat of this.menu){
@@ -55,11 +55,11 @@ export class MenuPage implements OnInit {
           newItems.push(item);
         }
       }
-      if (newItems.length > 0){
+     // if (newItems.length > 0){
       category.name = cat.name;
       category.id = cat.id;
       category.items = newItems;
-      this.displayMenu.push(category);}
+      this.displayMenu.push(category);//}
     }
 
 

@@ -19,7 +19,7 @@ export class OrderPage implements OnInit {
   orders: any[] = [];
   items: any[] = [];
   errorMessage: any;
-  searchFilter:string = "";
+  searchFilter: string = "";
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataService, public modalCtrl: ModalController) { }
 
   ngOnInit(): void {
@@ -44,13 +44,13 @@ export class OrderPage implements OnInit {
       }, error => this.errorMessage = <any>error);
   }
 
-filterOrders():any[]{
- if(this.searchFilter == "") return this.orders;
+  filterOrders(): any[] {
+    if (this.searchFilter == "") return this.orders;
 
-  return this.orders.filter((order)=>{
-    return this.getPersonName(order.id).toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1
-  });
-}
+    return this.orders.filter((order) => {
+      return this.getPersonName(order.id).toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1
+    });
+  }
   getItems(): void {
     this.dataService.get("/items")
       .subscribe(items => {
@@ -191,7 +191,7 @@ filterOrders():any[]{
   refreshOrder() {
     for (var order of this.orders) {
       order.include = false;
-      order.paid = 0;
+      order.paid = null;
       order.show = false;
       this.dataService.post("/orders", order)
         .subscribe(data => {
@@ -211,15 +211,16 @@ filterOrders():any[]{
           let itname = this.getItemName(item.id);
           text += itname + " x " + item.qty + newline;
         }
+        text += "Custom:" + order.custom;
         text += newline;
       }
     }
 
-    window.open( `mailto:?subject=Sandwich order&body=${encodeURIComponent(text)}`,"_self");
+    window.open(`mailto:?subject=Sandwich order&body=${encodeURIComponent(text)}`, "_self");
   }
 
-  saveOrder(order){
-      this.dataService.post("/orders", order)
+  saveOrder(order) {
+    this.dataService.post("/orders", order)
       .subscribe(data => {
         console.log(data);
       }, error => this.errorMessage = <any>error);

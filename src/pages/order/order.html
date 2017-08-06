@@ -73,7 +73,7 @@
          <!--PERSON PAID -->
         <ion-row class="greyUnder" align-items-center>
           <ion-col col-auto>
-            <ion-input style="width:100px" type="number" placeholder="Paid" [(ngModel)]="order.paid"></ion-input>
+            <ion-input style="width:100px" type="number" placeholder="Paid" [(ngModel)]="order.paid" (input)="saveOrder(order)"></ion-input>
           </ion-col>
           <ion-col width-100>
             {{getChange(order)}}
