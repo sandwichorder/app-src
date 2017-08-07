@@ -1,7 +1,8 @@
 # Sorion sandwich order app source
 
 ## Instalation
-You need [NodeJS](https://nodejs.org/en/) installed on your PC as well as some terminal tool like [Git Bash](https://git-for-windows.github.io/).
+You need [NodeJS](https://nodejs.org/en/) installed on your PC as well as some terminal tool like [Git Bash](https://git-for-windows.github.io/) and a code editor, i would suggest [Webstorm](https://www.jetbrains.com/webstorm/) or [Atom](https://atom.io/).
+
 Open Git Bash in directory where you want to pull the repository.
 ```
 npm install -g ionic
@@ -20,3 +21,9 @@ This will build all the files into the www/ directory. After build commit code t
 ```
 ionic serve
 ```
+## References
+[Ionic 2 components](http://ionicframework.com/docs/components/#overview)
+
+[Angular 2](https://angular.io/docs)
+
+[Typescript](http://www.typescriptlang.org/docs/handbook/basic-types.html)
