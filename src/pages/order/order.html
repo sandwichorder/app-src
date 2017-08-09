@@ -4,25 +4,30 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<!--
+Use ionic row and column to easy allign elements
+-->
 <ion-header>
   <ion-navbar>
     <ion-row align-items-center>
 
       <ion-col col-auto>
+          <!-- main menu icon -->
         <button ion-button menuToggle>
       <ion-icon color="mainGreen" name="menu"></ion-icon>
       </button>
       </ion-col>
-
+        <!-- Order with total $ text -->
       <ion-col width-100>
         <ion-title>Order {{getOrderTotal()}}</ion-title>
       </ion-col>
 
       <ion-col col-auto>
+          <!-- reset order data button-->
         <button ion-button clear (click)='refreshOrder()'>
         <ion-icon color="mainGreen" name="refresh"></ion-icon>
         </button>
-
+         <!-- generate orders text button-->
         <button color="mainGreen" ion-button (click)="generateOrderText()">
         Get Order
         </button>
@@ -33,40 +38,48 @@
 
 
 <ion-content>
+    <!--search bar -->
   <ion-searchbar [(ngModel)]="searchFilter" class="greenUnder"></ion-searchbar>
   <div>
-
+      <!--orders that match filter by name -->
     <div class="greenUnder" *ngFor="let order of filterOrders()">
       <!--ORDER START -->
       <!--PERSON HEADER -->
       <ion-row [ngClass]="{'greyUnder': order.show }" align-items-center>
         <ion-col width-100>
+            <!-- on person header click show/hide-->
           <div (click)="changeShow(order)">{{getPersonName(order.id)}}</div>
         </ion-col>
         <ion-col col-auto>
+            <!-- person header include toggle-->
           <ion-toggle color="mainGreen" mode="ios" [(ngModel)]="order.include" (ionChange)="changeInclude(order)"></ion-toggle>
         </ion-col>
       </ion-row>
 
-      <!--PERSON ORDER -->
+      <!--PERSON ORDER hideable details-->
       <div *ngIf="order.show">
-        <!--PERSON ITEMS -->
+        <!--ORDER ITEMS -->
         <div *ngFor="let item of order.items">
           <ion-row class="greyUnder subItems"  align-items-center>
             <ion-col width-100>
+                <!-- item name * qty -->
               <div>
                 {{item.qty}} x {{getItemName(item.id)}}
               </div>
             </ion-col>
             <ion-col col-auto>
               <ion-row  align-items-center>
+                  <!-- total for item * qty-->
                 <div class="marginRight">£{{getItemTotal(item).toFixed(2)}}</div>
+                <!-- item decrease button -->
                 <button class="small" color="mainGreen" ion-button (click)="decreaseItem(order,item)"><ion-icon name="remove"></ion-icon></button>
+                <!-- item increase button-->
                 <button class="small" color="mainGreen" ion-button (click)="increaseItem(order,item)"><ion-icon name="add"></ion-icon></button>
               </ion-row>
             </ion-col>
           </ion-row>
         </div>
+
         <div class="subItems">
          <!--PERSON CUSTOM -->
         <ion-input class="greyUnder" type="text" placeholder="Custom note" [(ngModel)]="order.custom" (input)="saveOrder(order)"></ion-input>
@@ -75,9 +88,11 @@
           <ion-col col-auto>
             <ion-input style="width:100px" type="number" placeholder="Paid" [(ngModel)]="order.paid" (input)="saveOrder(order)"></ion-input>
           </ion-col>
+          <!-- 'Change' to give and 'Left' to pay text-->
           <ion-col width-100>
             {{getChange(order)}}
           </ion-col>
+          <!-- order total price-->
           <ion-col col-auto>
           <div class="marginRight">{{getSingleOrderTotal(order)}}</div>
           </ion-col>
