@@ -8,15 +8,16 @@
   <ion-navbar>
     <ion-row align-items-center>
       <ion-col col-auto>
+          <!-- main menu icon -->
         <button ion-button menuToggle>
         <ion-icon color="mainGreen" name="menu"></ion-icon>
       </button>
       </ion-col>
-
+      <!-- people header text -->
       <ion-col width-100>
         <ion-title>People</ion-title>
       </ion-col>
-
+      <!-- add new person button in header-->
       <ion-col col-auto>
         <button ion-button clear (click)='addPersonPrompt()'>
         <ion-icon color="mainGreen" name="add"></ion-icon>
@@ -29,12 +30,15 @@
 
 
 <ion-content>
+    <!-- list of people-->
       <ion-row class="greenUnder" *ngFor="let person of people " align-items-center>
         <ion-col width-100>
+            <!-- on person element click open edit data module -->
           <div (click)='editPerson(person)'>{{person.name}} {{person.surname}}</div>
         </ion-col>
 
         <ion-col col-auto>
+            <!-- on remove button press delete person -->
           <button ion-button clear (click)='removePerson(person)'>
           <ion-icon color="mainGreen" name="trash"></ion-icon>
         </button>
